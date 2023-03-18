@@ -44,7 +44,7 @@ function Account() {
   };
 
   return (
-    <div className=" justify-center w-auto bg-[#feb966] rounded-xl mt-52 p-5 ">
+    <div className=" justify-center w-1/3 ml-auto mr-auto  bg-[#feb966] rounded-xl mt-52 p-5 ">
       <h1 className="text-center my-2 text-2xl font-bold">
         {"Inicio de Sesion"}
       </h1>

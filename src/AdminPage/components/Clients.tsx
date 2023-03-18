@@ -22,11 +22,9 @@ function Clients({
 }) {
   return (
     <div
-      className={
-        " bg-gray-50 shadow-sm rounded-lg w-1/2  text-center my-3 ml-3"
-      }
+      className={`bg-[#feb966] shadow-sm rounded-lg w-1/2  text-center my-3 ml-3`}
     >
-      <h1 className="text-red-400 font-bold text-lg ">{item.nombre}</h1>
+      <h1 className=" font-bold text-lg ">{item.nombre}</h1>
       <div className="">
         <div>
           <InfoData
@@ -42,7 +40,7 @@ function Clients({
       </div>
       <button
         type="button"
-        className={`shadow-lg bg-red-400 rounded-md p-1 my-2`}
+        className={`shadow-lg rounded-md p-2 my-2 bg-gray-50 text-sm`}
         onClick={() => {
           setUuid(item.uuid);
         }}

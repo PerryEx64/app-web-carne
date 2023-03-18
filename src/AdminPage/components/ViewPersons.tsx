@@ -47,14 +47,24 @@ function ViewPersons({ data }: { data: TypePersons }) {
     });
   };
   return (
-    <div>
+    <div className="">
       <InfoData title={"DPI"} content={data.dpi} />
       <InfoData title={"Nombre"} content={data.name} />
       {img && (
-        <img
-          src={img}
-          className=" w-1/2 h-1/2 ml-auto mr-auto my-2 rounded-md self-center  "
-        />
+        <>
+          <img
+            src={img}
+            className=" w-1/2 h-1/2 ml-auto mr-auto  rounded-md self-center  "
+          />
+          <button
+            className="font-bold text-red-500 mb-3 text-xl"
+            onClick={() => {
+              setImg("");
+            }}
+          >
+            X
+          </button>
+        </>
       )}
       <div className="flex flex-col">
         <button
@@ -67,6 +77,7 @@ function ViewPersons({ data }: { data: TypePersons }) {
           Descagar Imagen
         </button>
         <button
+          className=" text-blue-600 text-sm underline "
           type="button"
           onClick={() => {
             handleViewImage(data.image);

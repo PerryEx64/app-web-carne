@@ -10,6 +10,16 @@ import Persons from "./components/Persons";
 import ReactDOM from "react-dom";
 import ReactPaginate from "react-paginate";
 
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
+  authDomain: "app-carnet.firebaseapp.com",
+  projectId: "app-carnet",
+  storageBucket: "app-carnet.appspot.com",
+  messagingSenderId: "460462588965",
+  appId: "1:460462588965:web:d6f429198e69202bc86bcc",
+  measurementId: "G-ER3KJTT8CQ",
+};
+
 interface FormImput {
   nombre: string;
   encargado: string;
@@ -22,17 +32,7 @@ interface FormImput {
 function AdminPage() {
   const [dataClient, setDataClient] = React.useState<FormImput[]>([]);
   const [uuid, setUuid] = React.useState("");
-  const [itemOffset, setItemOffset] = React.useState(0);
-
-  const items = [1, 2, 3, 4, 5];
-  const endOffset = itemOffset + 1;
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / 1);
-
-  const handlePageClick = (event: any) => {
-    const newOffset = (event.selected * 1) % items.length;
-    setItemOffset(newOffset);
-  };
+  firebase.initializeApp(FIREBASE_CONFIG);
 
   const onResult = (querySnapshot: any) => {
     const result = querySnapshot.docs.map((doc: any) => doc.data());
@@ -58,8 +58,8 @@ function AdminPage() {
     );
   }
   return (
-    <div className="flex flex-1 flex-row mt-48">
-      <div className="w-1/2">
+    <div className="flex flex-1 flex-row mt-48 ">
+      <div className="w-1/2 ">
         {dataClient?.map((data, index) => (
           <Clients item={data} index={index} setUuid={setUuid} />
         ))}
@@ -67,17 +67,7 @@ function AdminPage() {
       <div className=" w-1/2">
         {uuid.length > 0 ? (
           <>
-            <Items currentItems={currentItems} />
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel="siguuiente >"
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={1}
-              pageCount={pageCount}
-              previousLabel="< anterior"
-              renderOnZeroPageCount={null}
-              className={"flex flex-row justify-around w-1/2"}
-            />
+            <Persons uuid={uuid} />
           </>
         ) : null}
       </div>
