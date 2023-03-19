@@ -15,6 +15,7 @@ interface FormImput {
 function Clients({
   item,
   setUuid,
+  index,
 }: {
   item: FormImput;
   index: number;

@@ -49,7 +49,9 @@ function AdminPage() {
       <div className="w-1/2 ">
         {/*  <PaginatedItems itemsPerPage={2} data={dataClient} setUuid={setUuid} />, */}
         {dataClient?.map((data, index) => (
-          <Clients item={data} index={index} setUuid={setUuid} />
+          <div key={index}>
+            <Clients item={data} index={index} setUuid={setUuid} />
+          </div>
         ))}
       </div>
       <div className=" w-1/2">
