@@ -1,14 +1,9 @@
 import React from "react";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import { initializeApp } from "firebase/app";
-import { saveAs } from "file-saver";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Clients from "./components/Clients";
 import Persons from "./components/Persons";
-import ReactDOM from "react-dom";
-import ReactPaginate from "react-paginate";
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
@@ -49,17 +44,10 @@ function AdminPage() {
     };
   }, []);
 
-  function Items({ currentItems }: any) {
-    return (
-      <>
-        {currentItems &&
-          currentItems.map((item: any) => <Persons uuid={uuid} />)}
-      </>
-    );
-  }
   return (
     <div className="flex flex-1 flex-row mt-48 ">
       <div className="w-1/2 ">
+        {/*  <PaginatedItems itemsPerPage={2} data={dataClient} setUuid={setUuid} />, */}
         {dataClient?.map((data, index) => (
           <Clients item={data} index={index} setUuid={setUuid} />
         ))}
