@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "soycarnet",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",

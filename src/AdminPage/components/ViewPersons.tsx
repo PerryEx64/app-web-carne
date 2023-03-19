@@ -4,7 +4,7 @@ import { MainColor } from "../../../utils/Colors";
 import InfoData from "../../components/InfoData";
 import { TypePersons } from "./Persons";
 import { initializeApp } from "firebase/app";
-import { saveAs } from "file-saver";
+/* import { saveAs } from "file-saver"; */
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
@@ -32,7 +32,7 @@ function ViewPersons({ data }: { data: TypePersons }) {
         };
         xhr.open("GET", url);
         xhr.send();
-        saveAs(`${url}`);
+        /*  saveAs(url); */
         setImg("");
       })
       .catch((error) => {
