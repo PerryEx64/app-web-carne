@@ -3,9 +3,9 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Clients from "./components/Clients";
-import Persons from "./components/Persons";
-import Wrapper from "../components/Wrapper";
+import Persons, { TypePersons } from "./components/Persons";
 import { Element } from "react-scroll";
+import Search from "./components/Search";
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
@@ -26,53 +26,20 @@ export interface FormImput {
   uuid: any;
 }
 
-const ITEMS_PER_PAGE = 2;
-
 function AdminPage() {
   firebase.initializeApp(FIREBASE_CONFIG);
-  const [data, setData] = React.useState([]);
   const [dataClient, setDataClient] = React.useState<FormImput[]>([]);
-  const [nextDisable, setNextDisable] = React.useState(false);
-  const [prevDisable, setPrevDisable] = React.useState(false);
+  const [dataFilter, setDataFilter] = React.useState<FormImput[]>([]);
+  const [dataPersons, setDataPersons] = React.useState<TypePersons[]>([]);
+  const [dataPersonsFilter, setDataPersonsFilter] = React.useState<
+    TypePersons[]
+  >([]);
   const [uuid, setUuid] = React.useState("");
-  const [items, setItems] = React.useState(
-    [...dataClient].splice(0, ITEMS_PER_PAGE)
-  );
-  const [currentPage, setCurrentPage] = React.useState(0);
-
-  const nextHandle = () => {
-    const totalElement = data.length;
-
-    const nextPage = currentPage + 1;
-
-    const firstIndex = nextPage * ITEMS_PER_PAGE;
-
-    console.log(firstIndex, totalElement);
-    if (firstIndex === totalElement) return;
-
-    setItems(dataClient.splice(firstIndex, ITEMS_PER_PAGE));
-    setCurrentPage(nextPage);
-  };
-
-  const prevHandle = () => {
-    const prevPage = currentPage - 1;
-
-    if (prevPage < 0) return;
-
-    const firstIndex = prevPage * ITEMS_PER_PAGE;
-    setItems([...dataClient].splice(firstIndex, ITEMS_PER_PAGE));
-    setCurrentPage(prevPage);
-  };
 
   const onResult = (querySnapshot: any) => {
     const result = querySnapshot.docs.map((doc: any) => doc.data());
     setDataClient(result);
-
-    const result2 = querySnapshot.docs.map((doc: any) => doc.data());
-    setData(result2);
-
-    const result3 = querySnapshot.docs.map((doc: any) => doc.data());
-    setItems(result3.splice(0, ITEMS_PER_PAGE));
+    setDataFilter(result);
   };
 
   const onErrors = () => {};
@@ -87,12 +54,34 @@ function AdminPage() {
 
   return (
     <div className="flex flex-1 flex-row ">
+      <div className="w-1/4 ">
+        <div className="bg-green-400 p-5 rounded-lg h-2/3 mt-5 mx-5">
+          <Search
+            dataFilter={dataFilter}
+            setDataFilter={setDataFilter}
+            data={dataClient}
+            filter={"encargado"}
+            label={"Filtrar por nombre de Institución"}
+          />
+          {uuid.length > 0 ? (
+            <Search
+              dataFilter={dataPersonsFilter}
+              setDataFilter={setDataPersonsFilter}
+              data={dataPersons}
+              filter={"name"}
+              label={"Filtrar por nombre de Persona"}
+              styleContent={"mt-16"}
+            />
+          ) : null}
+        </div>
+      </div>
+
       <Element
         name="test7"
         className="h-screen overflow-auto  w-1/3 mr-5"
         id="containerElement"
       >
-        {dataClient?.map((data, index) => (
+        {dataFilter?.map((data, index) => (
           <div key={index}>
             <Clients item={data} index={index} setUuid={setUuid} />
           </div>
@@ -104,13 +93,16 @@ function AdminPage() {
         className="h-screen overflow-auto w-1/3 mr-5 "
         id="containerElement"
       >
-        {/* <div className=" w-1/2 "> */}
         {uuid.length > 0 ? (
           <>
-            <Persons uuid={uuid} />
+            <Persons
+              uuid={uuid}
+              dataFilter={dataPersonsFilter}
+              setDataFilter={setDataPersonsFilter}
+              setData={setDataPersons}
+            />
           </>
         ) : null}
-        {/*  </div> */}
       </Element>
     </div>
   );

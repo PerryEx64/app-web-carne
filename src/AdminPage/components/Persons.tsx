@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -6,6 +6,9 @@ import ViewPersons from "./ViewPersons";
 
 interface Props {
   uuid: any;
+  setDataFilter: React.Dispatch<SetStateAction<TypePersons[]>>;
+  dataFilter: TypePersons[];
+  setData: React.Dispatch<SetStateAction<TypePersons[]>>;
 }
 
 export interface TypePersons {
@@ -18,10 +21,11 @@ export interface TypePersons {
   image: string;
 }
 
-function Persons({ uuid }: Props) {
-  const [data, setData] = React.useState<TypePersons[]>([]);
+function Persons({ uuid, setDataFilter, dataFilter, setData }: Props) {
+  /*  const [data, setData] = React.useState<TypePersons[]>([]); */
   const onResult = (querySnapshot: any) => {
     const result = querySnapshot.docs.map((doc: any) => doc.data());
+    setDataFilter(result);
     setData(result);
   };
 
@@ -39,9 +43,10 @@ function Persons({ uuid }: Props) {
     };
   }, [uuid]);
 
+  console.log(dataFilter);
   return (
     <>
-      {data.map((data, index) => (
+      {dataFilter.map((data, index) => (
         <div
           key={index}
           className=" bg-gray-200 p-1.5 shadow-sm rounded-lg text-center my-3 mx-5"
