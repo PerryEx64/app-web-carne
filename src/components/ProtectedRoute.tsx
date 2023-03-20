@@ -4,6 +4,8 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }: { children: any }) => {
   const dataUser = useSelector((state: any) => state.counts);
+
+  console.log(dataUser);
   if (!dataUser.value) {
     return <Navigate to={"/"} />;
   }
