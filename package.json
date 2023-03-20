@@ -20,6 +20,7 @@
     "react-hook-form": "^7.43.5",
     "react-paginate": "^8.1.4",
     "react-router-dom": "^6.9.0",
+    "react-scroll": "^1.8.9",
     "styled-components": "^5.3.9"
   },
   "devDependencies": {

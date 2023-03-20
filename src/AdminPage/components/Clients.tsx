@@ -22,9 +22,7 @@ function Clients({
   setUuid: any;
 }) {
   return (
-    <div
-      className={`bg-[#feb966] shadow-sm rounded-lg w-1/2  text-center my-3 ml-3`}
-    >
+    <div className={`bg-[#feb966] shadow-sm rounded-lg  text-center my-3 mx-5`}>
       <h1 className=" font-bold text-lg ">{item.nombre}</h1>
       <div className="">
         <div>

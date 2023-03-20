@@ -44,7 +44,7 @@ function Persons({ uuid }: Props) {
       {data.map((data, index) => (
         <div
           key={index}
-          className=" bg-gray-200  p-1.5 shadow-sm rounded-lg  text-center my-3 w-1/2 "
+          className=" bg-gray-200 p-1.5 shadow-sm rounded-lg text-center my-3 mx-5"
         >
           <ViewPersons data={data} />
         </div>

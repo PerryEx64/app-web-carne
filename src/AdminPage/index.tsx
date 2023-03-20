@@ -4,6 +4,8 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Clients from "./components/Clients";
 import Persons from "./components/Persons";
+import Wrapper from "../components/Wrapper";
+import { Element } from "react-scroll";
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
@@ -15,7 +17,7 @@ const FIREBASE_CONFIG = {
   measurementId: "G-ER3KJTT8CQ",
 };
 
-interface FormImput {
+export interface FormImput {
   nombre: string;
   encargado: string;
   cantidad: number;
@@ -24,14 +26,53 @@ interface FormImput {
   uuid: any;
 }
 
+const ITEMS_PER_PAGE = 2;
+
 function AdminPage() {
-  const [dataClient, setDataClient] = React.useState<FormImput[]>([]);
-  const [uuid, setUuid] = React.useState("");
   firebase.initializeApp(FIREBASE_CONFIG);
+  const [data, setData] = React.useState([]);
+  const [dataClient, setDataClient] = React.useState<FormImput[]>([]);
+  const [nextDisable, setNextDisable] = React.useState(false);
+  const [prevDisable, setPrevDisable] = React.useState(false);
+  const [uuid, setUuid] = React.useState("");
+  const [items, setItems] = React.useState(
+    [...dataClient].splice(0, ITEMS_PER_PAGE)
+  );
+  const [currentPage, setCurrentPage] = React.useState(0);
+
+  const nextHandle = () => {
+    const totalElement = data.length;
+
+    const nextPage = currentPage + 1;
+
+    const firstIndex = nextPage * ITEMS_PER_PAGE;
+
+    console.log(firstIndex, totalElement);
+    if (firstIndex === totalElement) return;
+
+    setItems(dataClient.splice(firstIndex, ITEMS_PER_PAGE));
+    setCurrentPage(nextPage);
+  };
+
+  const prevHandle = () => {
+    const prevPage = currentPage - 1;
+
+    if (prevPage < 0) return;
+
+    const firstIndex = prevPage * ITEMS_PER_PAGE;
+    setItems([...dataClient].splice(firstIndex, ITEMS_PER_PAGE));
+    setCurrentPage(prevPage);
+  };
 
   const onResult = (querySnapshot: any) => {
     const result = querySnapshot.docs.map((doc: any) => doc.data());
     setDataClient(result);
+
+    const result2 = querySnapshot.docs.map((doc: any) => doc.data());
+    setData(result2);
+
+    const result3 = querySnapshot.docs.map((doc: any) => doc.data());
+    setItems(result3.splice(0, ITEMS_PER_PAGE));
   };
 
   const onErrors = () => {};
@@ -45,22 +86,32 @@ function AdminPage() {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-row mt-48 ">
-      <div className="w-1/2 ">
-        {/*  <PaginatedItems itemsPerPage={2} data={dataClient} setUuid={setUuid} />, */}
+    <div className="flex flex-1 flex-row ">
+      <Element
+        name="test7"
+        className="h-screen overflow-auto  w-1/3 mr-5"
+        id="containerElement"
+      >
         {dataClient?.map((data, index) => (
           <div key={index}>
             <Clients item={data} index={index} setUuid={setUuid} />
           </div>
         ))}
-      </div>
-      <div className=" w-1/2">
+      </Element>
+
+      <Element
+        name="test7"
+        className="h-screen overflow-auto w-1/3 mr-5 "
+        id="containerElement"
+      >
+        {/* <div className=" w-1/2 "> */}
         {uuid.length > 0 ? (
           <>
             <Persons uuid={uuid} />
           </>
         ) : null}
-      </div>
+        {/*  </div> */}
+      </Element>
     </div>
   );
 }
