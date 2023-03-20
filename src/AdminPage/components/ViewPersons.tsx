@@ -5,6 +5,7 @@ import InfoData from "../../components/InfoData";
 import { TypePersons } from "./Persons";
 import { initializeApp } from "firebase/app";
 import { saveAs } from "file-saver";
+import { IoCloudDownloadOutline } from "react-icons/io5";
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
@@ -69,15 +70,17 @@ function ViewPersons({ data }: { data: TypePersons }) {
       <div className="flex flex-col">
         <button
           type="button"
-          className={`bg-[${MainColor.secondary}] rounded-md p-1 w-3/4 self-center `}
+          className={`flex flex-row bg-[${MainColor.secondary}] rounded-md p-1.5  self-center items-center `}
           onClick={() => {
             handleDownload(data.image);
           }}
         >
-          Descagar Imagen
+          <IoCloudDownloadOutline className="ml-auto mr-2 h-5 w-5" /> Descagar
+          Imagen
         </button>
+
         <button
-          className=" text-blue-600 text-sm underline "
+          className="flex flex-row items-center self-center text-blue-600 text-sm underline "
           type="button"
           onClick={() => {
             handleViewImage(data.image);

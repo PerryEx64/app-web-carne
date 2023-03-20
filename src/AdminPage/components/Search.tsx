@@ -1,7 +1,14 @@
 import React, { SetStateAction } from "react";
 import { useForm } from "react-hook-form";
-import { MainColor } from "../../../utils/Colors";
-import Select from "react-select";
+import { BiSearchAlt } from "react-icons/bi";
+import { TbFilterOff, TbFilter } from "react-icons/tb";
+import { BsPersonVcard } from "react-icons/bs";
+import { RiBuildingLine } from "react-icons/ri";
+
+export enum TypeLabel {
+  "PERSON" = "person",
+  "CLIENT" = "client",
+}
 
 interface Props {
   setDataFilter: React.Dispatch<SetStateAction<any>>;
@@ -10,6 +17,7 @@ interface Props {
   filter: string;
   label?: string;
   styleContent?: string;
+  type: TypeLabel;
 }
 function Search({
   setDataFilter,
@@ -18,6 +26,7 @@ function Search({
   filter,
   label,
   styleContent,
+  type,
 }: Props) {
   const {
     register,
@@ -47,7 +56,14 @@ function Search({
 
   return (
     <div className={styleContent}>
-      <label className=" font-thin text-sm">{label}</label>
+      <label className="flex flex-row items-center font-thin text-sm">
+        {type === TypeLabel.PERSON ? (
+          <BsPersonVcard className="mr-2 w-4 h-4" />
+        ) : type === TypeLabel.CLIENT ? (
+          <RiBuildingLine className="mr-2 w-4 h-4" />
+        ) : null}
+        {label}
+      </label>
 
       <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col"}>
         <input
@@ -57,14 +73,14 @@ function Search({
         />
         <div className="flex justify-evenly -mt-2">
           <button
-            className={`bg-[#fe9a66] p-2 rounded-lg shadow-xl mt-5 `}
+            className={`flex flex-row  items-center bg-[#fe9a66] p-2 rounded-lg shadow-xl mt-5 `}
             type="button"
             onClick={handleSubmit(onSubmit)}
           >
-            Buscar
+            <TbFilter /> Buscar
           </button>
           <button
-            className={`bg-[#fed766] p-2 rounded-lg shadow-xl mt-5 `}
+            className={`flex flex-row items-center bg-[#fed766] p-2 rounded-lg shadow-xl mt-5 `}
             type="button"
             onClick={() => {
               setDataFilter(data);
@@ -73,7 +89,7 @@ function Search({
               });
             }}
           >
-            Limpiar
+            <TbFilterOff /> Limpiar
           </button>
         </div>
       </form>

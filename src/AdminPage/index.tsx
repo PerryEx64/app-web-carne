@@ -5,7 +5,7 @@ import "firebase/compat/firestore";
 import Clients from "./components/Clients";
 import Persons, { TypePersons } from "./components/Persons";
 import { Element } from "react-scroll";
-import Search from "./components/Search";
+import Search, { TypeLabel } from "./components/Search";
 
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
@@ -62,6 +62,7 @@ function AdminPage() {
             data={dataClient}
             filter={"encargado"}
             label={"Filtrar por nombre de Institución"}
+            type={TypeLabel.CLIENT}
           />
           {uuid.length > 0 ? (
             <Search
@@ -71,6 +72,7 @@ function AdminPage() {
               filter={"name"}
               label={"Filtrar por nombre de Persona"}
               styleContent={"mt-16"}
+              type={TypeLabel.PERSON}
             />
           ) : null}
         </div>

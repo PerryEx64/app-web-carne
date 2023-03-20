@@ -12,6 +12,7 @@ type FormData = {
 };
 
 function Account() {
+  const [storage, setStorage] = React.useState<any>();
   const FIREBASE_CONFIG = {
     apiKey: "AIzaSyBHDLNclUuPljMldM7nM_YZOw0JdCAwps4",
     authDomain: "app-carnet.firebaseapp.com",
@@ -30,15 +31,12 @@ function Account() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const dataUser = useSelector((state: any) => state.counts);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const onSubmit = async (data: FormData) => {
     await signInWithEmailAndPassword(auth, data.username, data.password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
         navigate("/admin");
         dispatch(
           addUserData({
@@ -46,7 +44,6 @@ function Account() {
             uid: userCredential.user.uid,
           })
         );
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
