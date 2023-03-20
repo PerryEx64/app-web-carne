@@ -4,7 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AdminPage from "./AdminPage";
 import Account from "./assets/Account";
 import SideBar from "./components/SideBar";
+import { Provider } from "react-redux";
 import "./index.css";
+import store from "./app/storeSlice";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -13,11 +16,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <SideBar />,
+    element: (
+      <ProtectedRoute>
+        <SideBar />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "client",
-        element: <AdminPage />,
+        element: (
+          <ProtectedRoute>
+            <AdminPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -25,6 +36,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
