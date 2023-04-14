@@ -4,7 +4,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addUserData } from "../../futures/counts/countsSlice";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { setDataUser } from "../../app/futures/accountSlice";
 import Swal from "sweetalert2";

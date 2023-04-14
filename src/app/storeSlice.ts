@@ -1,11 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
-import  countsReducer  from "../futures/counts/countsSlice";
 import accountSlice from "./futures/accountSlice";
 
 
 const store = configureStore({
     reducer: {
-        counts: countsReducer,
         account: accountSlice
     }
 });
