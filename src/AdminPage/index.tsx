@@ -17,13 +17,21 @@ const FIREBASE_CONFIG = {
   measurementId: "G-ER3KJTT8CQ",
 };
 
-export interface FormImput {
+/* export interface FormImput {
   nombre: string;
   encargado: string;
   cantidad: number;
   telefono: string;
   status: true;
   uuid: any;
+} */
+
+export interface FormImput {
+  email: string;
+  id: number;
+  iglesia: string;
+  type: string;
+  name: string;
 }
 
 function AdminPage() {
@@ -45,7 +53,10 @@ function AdminPage() {
   const onErrors = () => {};
 
   React.useEffect(() => {
-    const query = firebase.firestore().collection("client");
+    const query = firebase
+      .firestore()
+      .collection("users")
+      .where("type", "==", "user");
     query.onSnapshot(onResult, onErrors);
     return () => {
       query && query === null;
@@ -54,7 +65,7 @@ function AdminPage() {
 
   return (
     <div className="flex flex-1 flex-row ">
-      <div className="w-1/4 ">
+      {/* <div className="w-1/4 ">
         <div className="bg-green-400 p-5 rounded-lg h-2/3 mt-5 mx-5">
           <Search
             dataFilter={dataFilter}
@@ -76,7 +87,7 @@ function AdminPage() {
             />
           ) : null}
         </div>
-      </div>
+      </div> */}
 
       <Element
         name="test7"

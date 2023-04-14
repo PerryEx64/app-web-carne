@@ -2,33 +2,37 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AdminPage from "./AdminPage";
-import Account from "./assets/Account";
 import SideBar from "./components/SideBar";
 import { Provider } from "react-redux";
 import "./index.css";
 import store from "./app/storeSlice";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./assets/Account";
+import Client from "./client";
+import AddInfoCards from "./client/AddInfoCards";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Account />,
+    element: <Login />,
+  },
+  {
+    path: "/user",
+    element: <Client />,
+    children: [
+      {
+        path: "addInfoCards",
+        element: <AddInfoCards />,
+      },
+    ],
   },
   {
     path: "/admin",
-    element: (
-      <ProtectedRoute>
-        <SideBar />
-      </ProtectedRoute>
-    ),
+    element: <SideBar />,
     children: [
       {
         path: "client",
-        element: (
-          <ProtectedRoute>
-            <AdminPage />
-          </ProtectedRoute>
-        ),
+        element: <AdminPage />,
       },
     ],
   },

@@ -11,10 +11,6 @@ function SideBar() {
     <div className="flex flex-row h-screen ">
       <div className="flex items-center flex-col justify-between py-5 basis-1/4 bg-gray-300 rounded-r-xl drop-shadow-2xl   ">
         <div className="w-full ">
-          {/* <img
-            src={"/icon.png"}
-            className=" w-1/4 h-1/2 ml-auto mr-auto  rounded-md "
-          /> */}
           <h1 className={`font-bold text-2xl text-center`}>Soy Carnét</h1>
           <div className=" w-2/3 h-0.5 bg-gray-700 mt-10 ml-auto mr-auto " />
         </div>
