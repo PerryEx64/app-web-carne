@@ -3,13 +3,21 @@ import { MainColor } from "../../../utils/Colors";
 import InfoData from "../../components/InfoData";
 import Persons from "./Persons";
 
-interface FormImput {
+/* interface FormImput {
   nombre: string;
   encargado: string;
   cantidad: number;
   telefono: string;
   status: true;
   uuid: any;
+} */
+
+export interface FormImput {
+  email: string;
+  id: number;
+  iglesia: string;
+  type: string;
+  name: string;
 }
 
 function Clients({
@@ -23,25 +31,22 @@ function Clients({
 }) {
   return (
     <div className={`bg-[#feb966] shadow-sm rounded-lg  text-center my-3 mx-5`}>
-      <h1 className=" font-bold text-lg ">{item.nombre}</h1>
+      <h1 className=" font-bold text-lg ">{item.name}</h1>
       <div className="">
         <div>
-          <InfoData
+          {/* <InfoData
             title={"Carnéts Elaborados"}
             content={Number(item.cantidad)}
-          />
-          <InfoData
-            title={"Numero de Teléfono"}
-            content={Number(item.telefono)}
-          />
-          <InfoData title={"Encargado"} content={item.encargado} />
+          /> */}
+          <InfoData title={"Usuario"} content={item.email} />
+          <InfoData title={"Iglesia"} content={item.iglesia} />
         </div>
       </div>
       <button
         type="button"
         className={`shadow-lg rounded-md p-2 my-2 bg-gray-50 text-sm`}
         onClick={() => {
-          setUuid(item.uuid);
+          setUuid(item.email);
         }}
       >
         Ver Personas

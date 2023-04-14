@@ -11,7 +11,7 @@ interface Props {
   setData: React.Dispatch<SetStateAction<TypePersons[]>>;
 }
 
-export interface TypePersons {
+/* export interface TypePersons {
   name: string;
   dpi: string;
   cargo: string;
@@ -19,6 +19,14 @@ export interface TypePersons {
   titulo: string;
   status: string;
   image: string;
+} */
+
+export interface TypePersons {
+  cargo: string;
+  dpi: string;
+  image: string;
+  name: string;
+  status: boolean;
 }
 
 function Persons({ uuid, setDataFilter, dataFilter, setData }: Props) {
@@ -34,7 +42,7 @@ function Persons({ uuid, setDataFilter, dataFilter, setData }: Props) {
   React.useEffect(() => {
     const query = firebase
       .firestore()
-      .collection("client")
+      .collection("users")
       .doc(uuid)
       .collection("persons");
     query.onSnapshot(onResult, onErrors);
@@ -43,7 +51,6 @@ function Persons({ uuid, setDataFilter, dataFilter, setData }: Props) {
     };
   }, [uuid]);
 
-  console.log(dataFilter);
   return (
     <>
       {dataFilter.map((data, index) => (
