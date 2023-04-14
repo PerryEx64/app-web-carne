@@ -51,7 +51,6 @@ function Persons({ uuid, setDataFilter, dataFilter, setData }: Props) {
     };
   }, [uuid]);
 
-  console.log(dataFilter);
   return (
     <>
       {dataFilter.map((data, index) => (

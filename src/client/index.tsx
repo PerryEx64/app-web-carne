@@ -2,10 +2,34 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { MainColor } from "../../utils/Colors";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { getAuth, signOut } from "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { FIREBASE_CONFIG } from "../assets/Account";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { setDataUser } from "../app/futures/accountSlice";
 
 const Client = () => {
+  const app = initializeApp(FIREBASE_CONFIG);
+  const dispatch = useDispatch();
   const onSubmit = () => {
-    console.log("");
+    const auth = getAuth(app);
+    signOut(auth)
+      .then(() => {
+        dispatch(
+          setDataUser({
+            email: "",
+            id: 0,
+            iglesia: "",
+            name: "",
+            type: "",
+          })
+        );
+        Swal.fire("Sesion Terminada", "", "info");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
   };
   return (
     <div>
@@ -27,10 +51,8 @@ const Client = () => {
           onClick={() => onSubmit()}
           className={`flex flex-row rounded-lg ]`}
         >
-          <RiLogoutBoxLine className="w-6 h-6 text-white" />
-          <label className={`text-[${MainColor.secondary}`}>
-            Cerrar Sesion
-          </label>
+          <RiLogoutBoxLine className="w-6 h-6 " />
+          <label className={``}>Cerrar Sesion</label>
         </Link>
       </div>
       <div className="flex-1">

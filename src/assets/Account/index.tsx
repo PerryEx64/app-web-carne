@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addUserData } from "../../futures/counts/countsSlice";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { setDataUser } from "../../app/futures/accountSlice";
+import Swal from "sweetalert2";
 
 type FormData = {
   username: string;
@@ -59,12 +60,12 @@ const Login = () => {
           } else if (result.type === "admin") {
             navigate("/admin");
           }
+          Swal.fire("Sesion Iniciada", "Bienvenido", "success");
         }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
       });
   };
 

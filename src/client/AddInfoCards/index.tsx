@@ -46,7 +46,6 @@ const AddInfoCards = () => {
   };
 
   const onSubmit = (data: Inputs) => {
-    console.log(data, selectUser);
     firebase
       .firestore()
       .collection("users")
@@ -63,9 +62,7 @@ const AddInfoCards = () => {
       .then((res) => {
         handleUpload(selectUser.id, data.name);
       })
-      .catch((error) => {
-        console.log("ah ocurrido un error");
-      });
+      .catch((error) => {});
   };
   return (
     <div className=" flex flex-col justify-evenly w-3/4 mx-auto ">
