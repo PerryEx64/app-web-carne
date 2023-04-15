@@ -100,6 +100,7 @@ const Login = () => {
                 {"Contraseña"}
               </label>
               <input
+                type="password"
                 placeholder={"ingrese su usuario"}
                 {...register("password")}
                 className=" rounded-lg mx-2 p-2 shadow-lg "
