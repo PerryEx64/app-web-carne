@@ -71,11 +71,11 @@ const Login = () => {
   return (
     <div className="flex flex-col mx-3 h-screen">
       <div className="flex grow flex-row p-3 justify-center items-center">
-        <img
+        {/*  <img
           src={"./../public/login.svg"}
           alt="Login"
           className="w-2/3 h-2/3"
-        />
+        /> */}
         <div className="w-1/2">
           <form
             className="flex flex-col justify-around w-96 h-96 p-2 bg-gray-50 shadow-lg shadow-[#1e2738] rounded-lg"
