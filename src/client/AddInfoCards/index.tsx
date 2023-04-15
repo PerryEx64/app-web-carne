@@ -57,28 +57,8 @@ const AddInfoCards = () => {
   };
 
   const onSubmit = async (data: Inputs) => {
-    /* setDisabled(false);
-    console.log(data, img); */
-    /* firebase
-      .firestore()
-      .collection("users")
-      .doc(selectUser.email)
-      .collection("persons")
-      .doc(data.dpi)
-      .set({
-        name: data.name,
-        dpi: data.dpi,
-        cargo: data.cargo,
-        status: true,
-        image: `${selectUser.id}/${data.name}`,
-      })
-      .then((res) => {
-        handleUpload(selectUser.id, data.name);
-      })
-      .catch((error) => {
-        setDisabled(false);
-        Swal.fire("Ah ocurrido un error", "", "error");
-      }); */
+    setDisabled(true);
+
     await setDoc(doc(db, "users", selectUser.email, "persons", data.dpi), {
       name: data.name,
       dpi: data.dpi,
